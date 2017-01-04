@@ -1,5 +1,5 @@
 /*
-  g++ -Wall -Werror -std=c++11 glob_match_test.cpp glob_match.cpp && ./a.out
+  g++ -Wall -Werror -std=c++17 glob_match_test.cpp glob_match.cpp && ./a.out
 */
 
 /*
@@ -69,5 +69,6 @@ int main()
   EXPECT(glob_match_caseless("h*L?", "hello"));
   EXPECT(!glob_match("h*L?", "hello"));
 
+  std::cout << (pass ? "pass" : "fail") << '\n';
   return pass ? EXIT_SUCCESS : EXIT_FAILURE;
 }
