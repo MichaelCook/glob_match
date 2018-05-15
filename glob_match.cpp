@@ -34,7 +34,7 @@ namespace
 {
 
 template<typename EQUAL>
-bool glob_match(string_view pattern, string_view target, EQUAL equal)
+bool glob_match(string_view pattern, string_view target, EQUAL&& equal)
 {
   auto p = pattern.begin();
   auto pe = pattern.end();
@@ -48,7 +48,7 @@ bool glob_match(string_view pattern, string_view target, EQUAL equal)
       for (auto backtracker = qe; backtracker >= q; --backtracker)
         if (glob_match(string_view(p, pe - p),
                        string_view(backtracker, qe - backtracker),
-                       equal))
+                       std::forward<EQUAL>(equal)))
           return true;
       break;
     }
