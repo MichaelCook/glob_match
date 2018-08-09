@@ -25,14 +25,13 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glob_match.hpp"
-#include <cstdlib>
-#include <iostream>
+#include "glob_match.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 #define EXPECT(X) do {                                                  \
   if (!(X)) {                                                           \
-    std::cout << "failed at " << __FILE__ << " line " << __LINE__       \
-              << std::endl;                                             \
+    printf("failed at %s line %d\n", __FILE__, __LINE__);               \
     pass = false;                                                       \
   }                                                                     \
 } while (0)
@@ -58,13 +57,13 @@ int main()
   EXPECT(glob_match("*", "hello"));
   EXPECT(!glob_match("?", ""));
 
-  EXPECT(glob_match(std::string("h***?***o"), std::string("hello")));
+  EXPECT(glob_match("h***?***o", "hello"));
 
   EXPECT(!glob_match("hello", "HELLO"));
   EXPECT(glob_match_caseless("hello", "HELLO"));
   EXPECT(glob_match_caseless("h*L?", "hello"));
   EXPECT(!glob_match("h*L?", "hello"));
 
-  std::cout << (pass ? "pass" : "fail") << '\n';
+  printf("%s\n", pass ? "pass" : "fail");
   return pass ? EXIT_SUCCESS : EXIT_FAILURE;
 }

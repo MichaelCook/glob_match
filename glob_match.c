@@ -25,46 +25,14 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glob_match.hpp"
-#include <cstdlib>
-#include <iostream>
+#include "glob_match.h"
 
-#define EXPECT(X) do {                                                  \
-  if (!(X)) {                                                           \
-    std::cout << "failed at " << __FILE__ << " line " << __LINE__       \
-              << std::endl;                                             \
-    pass = false;                                                       \
-  }                                                                     \
-} while (0)
+#define GLOB_MATCH_EQUAL_CHARS(A, B) ((A) == (B))
+#include "glob_match_template.h"
+#include <string.h>
 
-int main()
+bool glob_match(char const* pattern, char const* target)
 {
-  bool pass = true;
-
-  EXPECT(glob_match("hello", "hello"));
-  EXPECT(!glob_match("hello", "hello!"));
-  EXPECT(!glob_match("hello", "hi"));
-
-  EXPECT(glob_match("he?lo", "hello"));
-  EXPECT(glob_match("h*o", "hello"));
-  EXPECT(glob_match("h******o", "hello"));
-  EXPECT(glob_match("h***?***o", "hello"));
-  EXPECT(glob_match("*o", "hello"));
-  EXPECT(glob_match("h*", "hello"));
-
-  EXPECT(!glob_match("", "hello"));
-  EXPECT(glob_match("", ""));
-  EXPECT(glob_match("*", ""));
-  EXPECT(glob_match("*", "hello"));
-  EXPECT(!glob_match("?", ""));
-
-  EXPECT(glob_match(std::string("h***?***o"), std::string("hello")));
-
-  EXPECT(!glob_match("hello", "HELLO"));
-  EXPECT(glob_match_caseless("hello", "HELLO"));
-  EXPECT(glob_match_caseless("h*L?", "hello"));
-  EXPECT(!glob_match("h*L?", "hello"));
-
-  std::cout << (pass ? "pass" : "fail") << '\n';
-  return pass ? EXIT_SUCCESS : EXIT_FAILURE;
+  return glob_match_internal(pattern, pattern + strlen(pattern),
+                             target, target + strlen(target));
 }
