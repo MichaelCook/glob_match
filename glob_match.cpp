@@ -28,7 +28,7 @@
 #include "glob_match.hpp"
 #include <cctype>
 
-using std::experimental::string_view;
+using std::string_view;
 
 namespace
 {

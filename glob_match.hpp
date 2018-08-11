@@ -37,10 +37,10 @@
 
 #pragma once
 
-#include <experimental/string_view>
+#include <string_view>
 
-bool glob_match(std::experimental::string_view pattern,
-                std::experimental::string_view target);
+bool glob_match(std::string_view pattern,
+                std::string_view target);
 
-bool glob_match_caseless(std::experimental::string_view pattern,
-                         std::experimental::string_view target);
+bool glob_match_caseless(std::string_view pattern,
+                         std::string_view target);
