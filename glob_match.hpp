@@ -37,20 +37,7 @@
 
 #pragma once
 
-#if __GNUC__
-  #include <features.h>
-  #if __GNUC_PREREQ(7,1) // if >= 7.1
-    #include <string_view>
-  #else
-    #include <experimental/string_view>
-    namespace std
-    {
-      using string_view = std::experimental::string_view;
-    }
-  #endif
-#else
-  #include <string_view>
-#endif
+#include <string_view>
 
 bool glob_match(std::string_view pattern,
                 std::string_view target);
