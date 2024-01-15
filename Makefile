@@ -1,3 +1,7 @@
+.PHONY: default
+default:
+	echo "Use 'make all' to build everything and run the tests"
+
 .PHONY: all
 all: test_cpp test_c
 
